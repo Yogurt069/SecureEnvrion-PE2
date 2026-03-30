@@ -134,31 +134,13 @@ This makes the platform:
 
 ## 📌 Future Improvements
 
-* 🔌 Real-time messaging (Socket.io)
-* 🗄️ Database integration (PostgreSQL)
-* 🔐 Strong encryption implementation
-* 👥 Multi-user live chat
-* ⏳ Auto-delete inactive rooms
-* 🟢 Online/offline indicators
+* Real-time messaging (Socket.io)
+* Database integration (PostgreSQL)
+* Strong encryption implementation
+* Multi-user live chat
+* Auto-delete inactive rooms
+* Online/offline indicators
 
 ---
-
-## 👨‍💻 Author
-
-**Sujit Kshatriye**
-
-* Cybersecurity Student
-* C++ Programmer
-* Passionate about secure systems
-
----
-
-## ⭐ Contribution
-
-Feel free to fork this repository and contribute!
-
----
-
-## 📜 License
 
 This project is open-source and available under the MIT License.
