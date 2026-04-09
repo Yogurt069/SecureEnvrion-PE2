@@ -31,6 +31,7 @@ const handleLogout= ()=>{
   window.location.href = "/";
 }
 
+
 function ChatRoom() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -52,6 +53,7 @@ function ChatRoom() {
       if (JSON.stringify(data) !== JSON.stringify(messages)) {
         setMessages(data);
       }
+      
     } catch (err) {
       console.error(err);
     }
@@ -69,13 +71,12 @@ function ChatRoom() {
         });
     }
   };
-
   const [members, setMembers] = useState([]);
   const loadMembers = async () => {
     try {
       const res = await fetch(`http://localhost:5000/room-users/${roomId}`);
       const data = await res.json();
-
+      
       if (Array.isArray(data)) setMembers(data);
     } catch (err) {
       console.error(err);
@@ -109,6 +110,40 @@ function ChatRoom() {
       console.error(err);
     }
   };
+  
+const downloadChat = async () => {
+  try {
+    let content = `Room: ${roomId}\n\n`;
+
+    for (let msg of messages) {
+      let text = "🔒";
+
+      if (msg.ciphertext && msg.iv) {
+        try {
+          text = await decryptMessage(msg.ciphertext, msg.iv);
+        } catch {
+          text = "🔒 Failed";
+        }
+      }
+      
+
+      content += `${msg.username}: ${text} -- ${msg.created_at}\n`;
+    }
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `chat-room-${roomId}.txt`;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("Download error:", err);
+  }
+};
+
 
   // 🔹 Auto load + auto scroll
   useEffect(() => {
@@ -125,7 +160,6 @@ function ChatRoom() {
   
   return (
     <div className="chat-bg">
-      
       <div className="chat-card">
 
         {/* HEADER */}
@@ -133,6 +167,7 @@ function ChatRoom() {
           <div>
             <h2>💬 Secure Room</h2>
             <span className="room-id">Room: {roomId}</span>
+            
           </div>
 
           <div className="header-right">
@@ -147,6 +182,7 @@ function ChatRoom() {
             <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
+            <button className="logout-btn" onClick = {downloadChat}>Download</button>
           </div>
         </div>
 

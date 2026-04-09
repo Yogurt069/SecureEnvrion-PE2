@@ -695,8 +695,8 @@ code, .username {
 
 /* CARD */
 .chat-card {
-  width: 420px;
-  height: 600px;
+  width: 800px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(15px);
@@ -875,4 +875,18 @@ code, .username {
 .member.me{
   background: #22c55e;
   color: black;
+}
+.download-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.download-btn:hover {
+  background: #2563eb;
 }

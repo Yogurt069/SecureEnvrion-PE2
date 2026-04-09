@@ -170,7 +170,7 @@ app.get("/messages/:roomId", async(req,res)=>{
             });
         }
         const messages = await sql`
-        SELECT m.id,m.ciphertext,m.created_at,u.username, m.iv
+        SELECT m.id,m.ciphertext,m.created_at,u.username, m.iv, m.created_at, r.room_code
         FROM messages m
         JOIN users u ON m.user_id = u.id
         JOIN rooms r ON m.room_id = r.id
@@ -178,6 +178,7 @@ app.get("/messages/:roomId", async(req,res)=>{
         ORDER BY m.created_at ASC
         `;
         res.json(messages);
+        
     } catch(err){
         console.error("Fetch Error: ", err);
         res.status(500).json({error: "Error fetching messages"});
